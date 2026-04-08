@@ -1,113 +1,99 @@
-# 🚗 Multi-Mode Robotic Car using ESP32
+# ESP32 Autonomous Obstacle Avoidance Robot Car (Voice + Manual Control)
 
-A smart robotic car built using ESP32 that operates in **three modes**:
-- Manual Control (Bluetooth)
-- Voice Control (Safe Mode)
-- Autonomous Navigation (Obstacle Avoidance)
+## Overview
+This project presents a multi-mode ESP32-based robotic car capable of autonomous navigation, manual control, and voice-based control using Google Speech-to-Text.
 
-This project demonstrates real-world robotics concepts like sensor integration, decision-making, and wireless control.
+The system integrates ultrasonic and IR sensors for obstacle detection, Bluetooth communication for command transmission, and a servo-based scanning mechanism for intelligent navigation.
 
 ---
 
-## 📌 Features
-
-- 🔵 **Manual Mode (Bluetooth Control)**
-  - Control the car using commands: Forward, Backward, Left, Right, Stop
-  - Real-time user control
-
-- 🎤 **Voice Mode (Safe Control)**
-  - Voice commands processed via mobile app
-  - Built-in obstacle safety using IR + Ultrasonic sensors
-
-- 🤖 **Autonomous Mode**
-  - Smart obstacle avoidance
-  - Uses ultrasonic + IR sensors
-  - Servo-based 180° scanning for path selection
+## Key Features
+- Autonomous obstacle avoidance using ultrasonic + IR sensors
+- Manual control via Bluetooth commands
+- Voice control using Google Speech-to-Text
+- Servo-based directional scanning
+- Real-time motor control using TB6612FNG driver
+- Multi-mode switching (Auto / Manual / Voice)
 
 ---
 
-## 🧠 Working Principle
+## System Architecture
 
-The ESP32 acts as the brain of the system:
-- Receives commands via Bluetooth
-- Processes sensor data (Ultrasonic + IR)
-- Makes real-time decisions
-- Controls motors using motor driver
+Mobile App → Speech-to-Text → Bluetooth → ESP32 → Motor Driver → Motors
+
+Sensors (Ultrasonic + IR) → ESP32 → Decision Logic → Movement
 
 ---
 
-## ⚙️ Hardware Components
-
-- ESP32 Microcontroller  
-- HC-SR04 Ultrasonic Sensor  
-- IR Sensors (Left & Right)  
-- SG90 Servo Motor  
-- TB6612FNG Motor Driver  
-- DC Motors + Chassis  
-- 18650 Li-ion Batteries  
-- Buck Converter  
-- Capacitors & Resistors  
+## Hardware Components
+- ESP32 DevKit V1
+- HC-SR04 Ultrasonic Sensor
+- IR Sensors (Left + Right)
+- TB6612FNG Motor Driver
+- DC Gear Motors
+- Servo Motor
+- Li-ion Battery + BMS
+- DC-DC Buck Converter
 
 ---
 
-## 🔄 Modes of Operation
+## Hardware Setup
 
-### 1. Manual Mode
-- Controlled via Bluetooth commands:
-  - F → Forward  
-  - B → Backward  
-  - L → Left  
-  - R → Right  
-  - S → Stop  
+### Full Robot Setup
+<img width="433" height="576" alt="Setup" src="https://github.com/user-attachments/assets/98edc5b5-fd1f-46c1-addb-10ca6af73631" />
 
----
 
-### 2. Voice Mode (Safe Mode)
-- Commands:
-  - "Go forward", "Go left", etc.
-- Safety logic:
-  - Stops if obstacle is too close
-  - Avoids obstacles using IR sensors
+### Obstacle Testing
+![Testing-4](https://github.com/user-attachments/assets/40753746-81ca-400e-a256-362028f2af7c)
+![Testing-2](https://github.com/user-attachments/assets/eaaaa3c2-d24b-4cbf-b46d-dca6fa2616ef)
+![Testing-3](https://github.com/user-attachments/assets/d8ebe23e-fafd-4b2e-a858-b4c1d14c40db)
+![Testing-1](https://github.com/user-attachments/assets/2c5a072a-c390-4b87-be15-b52448396372)
 
----
 
-### 3. Autonomous Mode
-- Moves forward if path is clear  
-- If obstacle detected:
-  - Stops  
-  - Scans left & right using servo  
-  - Chooses best direction  
+
+### Mobile App Interface
+![Voice mode](https://github.com/user-attachments/assets/656473f0-bc00-4dbc-84bd-a3bc2ed8ea12)
+
 
 ---
 
-## 🔁 Algorithm (Simplified)
+## Working Explanation
 
-1. Initialize all components  
-2. Select mode (Manual / Voice / Auto)  
-3. Loop continuously:
-   - Manual → Execute user commands  
-   - Voice → Execute commands with safety checks  
-   - Auto → Detect obstacles and navigate  
+### Autonomous Mode
+- Ultrasonic sensor scans forward distance
+- Servo rotates sensor for left-right scanning
+- Robot selects direction with maximum clearance
 
----
+### Manual Mode
+- Commands received via Bluetooth (F, B, L, R, S)
+- ESP32 parses commands and drives motors
 
-## 💻 How to Run
-
-1. Install Arduino IDE / VS Code  
-2. Install ESP32 board support  
-3. Upload the code to ESP32  
-4. Connect via Bluetooth  
-5. Send commands from mobile app  
+### Voice Mode
+- User speaks via mobile app
+- Speech converted to text (Google STT)
+- Commands sent to ESP32 via Bluetooth
 
 ---
 
-## 📷 Project Images
+## Command Mapping
 
-<img width="433" height="576" alt="WhatsApp_Image_2026-03-31_at_11 10 57_PM__1_-removebg-preview" src="https://github.com/user-attachments/assets/eafe0ebe-ff59-4265-8610-1fa267dd83de" />
+| Command | Action |
+|--------|--------|
+| F | Forward |
+| B | Backward |
+| L | Left |
+| R | Right |
+| S | Stop |
 
-<img width="576" height="433" alt="car_pic-removebg-preview" src="https://github.com/user-attachments/assets/c6c4eeb6-9139-47a3-998c-410861637a4f" />
+---
 
-<img width="433" height="576" alt="WhatsApp_Image_2026-03-31_at_11 10 58_PM-removebg-preview" src="https://github.com/user-attachments/assets/90d7904d-6e8a-481d-919d-f7f793b076dd" />
+## Code Snippet (Command Handling)
 
+```cpp
+if(cmd == "forward") moveForward();
+else if(cmd == "back") moveBackward();
+else if(cmd == "left") turnLeft();
+else if(cmd == "right") turnRight();
+else if(cmd == "stop") stopMotors();
 
 
