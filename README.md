@@ -103,4 +103,11 @@ The ESP32 acts as the brain of the system:
 
 ## 📷 Project Images
 
-_Add your images here_
+<img width="433" height="576" alt="WhatsApp_Image_2026-03-31_at_11 10 57_PM__1_-removebg-preview" src="https://github.com/user-attachments/assets/eafe0ebe-ff59-4265-8610-1fa267dd83de" />
+
+<img width="576" height="433" alt="car_pic-removebg-preview" src="https://github.com/user-attachments/assets/c6c4eeb6-9139-47a3-998c-410861637a4f" />
+
+<img width="433" height="576" alt="WhatsApp_Image_2026-03-31_at_11 10 58_PM-removebg-preview" src="https://github.com/user-attachments/assets/90d7904d-6e8a-481d-919d-f7f793b076dd" />
+
+
+
